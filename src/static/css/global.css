@@ -1,0 +1,22 @@
+.header {
+    background-color: #2196F3;
+    height: 40px;
+}
+
+.navigation-line {
+    background-color: #BBDEFB;
+}
+
+input[type="text"], textarea {
+  background-color : #e4f3ff;
+  border: 0px;
+  border-style: none;
+}
+
+.file-entry {
+	height: 50px;
+}
+
+.file-entry:nth-of-type(odd) {
+    background: #FAFAFA;
+}

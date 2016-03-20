@@ -1,0 +1,5 @@
+# editor specific
+*.swp
+
+# npm specific
+node_modules
