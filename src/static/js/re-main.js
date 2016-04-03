@@ -26,6 +26,7 @@ function createEntry(data) {
 	// icon section
 	e += data.filename;
 	e += "<br />";
+	e += "<img src=\"../../assets/icons/x-pdf.png\" width=\"20\", height=\"20\"/>";
 	e += data.fullpath + " " + data.filesize;
   e += "</div>\n";
 	return e;

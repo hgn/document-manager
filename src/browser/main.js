@@ -26,7 +26,7 @@ var supported_suffixes = [
 	'.ptp', '.xptp',
 
 	// misc
-	'.tex', '.txt', '.md', '.svg'
+	'.tex', '.pdf', '.txt', '.md', '.svg'
 ];
 
 function createWindow () {
