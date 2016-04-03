@@ -17,6 +17,23 @@ input[type="text"], textarea {
 	height: 50px;
 }
 
-.file-entry:nth-of-type(odd) {
+
+div.table { 
+	width:100%;
+	display: table; 
+	border-collapse:collapse; 
+}
+div.tr { 
+	display:table-row; 
+}
+div.td { 
+	display:table-cell; 
+	padding:5px; 
+  vertical-align:middle;
+}
+
+div.tr:nth-of-type(odd) {
     background: #FAFAFA;
 }
+
+

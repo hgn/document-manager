@@ -32,11 +32,8 @@ var supported_suffixes = [
 function createWindow () {
 	mainWindow = new BrowserWindow({width: 800, height: 600});
 	mainWindow.setMenu(null);
-
 	mainWindow.loadURL('file://' + __dirname + '/../static/html/index.html');
-
 	mainWindow.webContents.openDevTools();
-
 	mainWindow.on('closed', function() {
 		mainWindow = null;
 	});
@@ -60,18 +57,15 @@ function prettyNumber(pBytes, pUnits) {
 
 	var bytes = Math.abs(pBytes)
 		if(pUnits && pUnits.toLowerCase() && pUnits.toLowerCase() == 'si') {
-			// SI units use the Metric representation based on 10^3 as a order of magnitude
 			var orderOfMagnitude = Math.pow(10, 3);
 			var abbreviations = ['Bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 		} else {
-			// IEC units use 2^10 as an order of magnitude
 			var orderOfMagnitude = Math.pow(2, 10);
 			var abbreviations = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
 		}
 	var i = Math.floor(Math.log(bytes) / Math.log(orderOfMagnitude));
 	var result = (bytes / Math.pow(orderOfMagnitude, i));
 
-	// This will get the sign right
 	if(pBytes < 0) {
 		result *= -1;
 	}
@@ -79,11 +73,26 @@ function prettyNumber(pBytes, pUnits) {
 	return result.toFixed(2) + ' ' + abbreviations[i];
 }
 
+function filetypeClass(f) {
+		if (f.endsWith('docx'))
+			return 'DOC';
+		if (f.endsWith('pdf'))
+			return 'PDF';
+		if (f.endsWith('xls'))
+			return 'XLS';
+		if (f.endsWith('ptp'))
+			return 'PTP';
+
+		return 'UNKNOWN';
+}
+
 function fileentry(fullpath) {
 	var e = new Object();
 	e.filename = basename(fullpath);
 	e.pathname = dirname(fullpath);
 	e.fullpath = fullpath;
+
+	e.filetype = filetypeClass(e.filename);
 
 	var stats = fs.statSync(fullpath)
 	e.filesize = prettyNumber(stats.size, 'iec');

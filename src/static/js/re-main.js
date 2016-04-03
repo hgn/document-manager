@@ -18,16 +18,40 @@ ipcRenderer.on('file-database-update', function(event, arg) {
   displayFiles();
 });
 
+function filetypeIcon(filetype) {
+	switch (filetype) {
+		case "DOC":
+			return "../../assets/icons/x-doc.png";
+			break;
+		case "PDF":
+			return "../../assets/icons/x-pdf.png";
+			break;
+		case "XLS":
+			return "../../assets/icons/x-xls.png";
+			break;
+		case "PTP":
+			return "../../assets/icons/x-ptp.png";
+			break;
+		case "UNKNOWN":
+			return "../../assets/icons/x-unknown.png";
+			break;
+	}
+}
+
 
 function createEntry(data) {
 	var filename = data.filename;
-  var e = "<div class=\"file-entry\">";
+  var e = "<div class=\"tr\">";//"<div class=\"file-entry\">";
 
 	// icon section
+	e += "<div class=\"td\">";
+	e += "<img src=\"" + filetypeIcon(data.filetype) + "\" width=\"20\", height=\"20\"/>";
+	e += "</div>";
+	e += "<div class=\"td\">";
 	e += data.filename;
 	e += "<br />";
-	e += "<img src=\"../../assets/icons/x-pdf.png\" width=\"20\", height=\"20\"/>";
 	e += data.fullpath + " " + data.filesize;
+	e += "</div>";
   e += "</div>\n";
 	return e;
 }
@@ -36,16 +60,18 @@ function displayFiles() {
 		if (!dataBase)
 			return;
 
-    var final_string = "";
+    var final_string = "<div class=\"table\">";
 
     var arrayLength = dataBase.length;
-    for (var i = 0; i < arrayLength; i++) {
+		for (var i = 0; i < arrayLength; i++) {
 			if (filter) {
 				if (dataBase[i].filename.indexOf(filter) == -1)
 					continue;
 			}
 			final_string += createEntry(dataBase[i]);
 		}
+
+		final_string += "</div>";
    
     document.getElementById("file-content").innerHTML = final_string;
 }
