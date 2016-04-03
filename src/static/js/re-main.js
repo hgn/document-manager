@@ -24,7 +24,9 @@ function createEntry(data) {
   var e = "<div class=\"file-entry\">";
 
 	// icon section
-	e += filename;
+	e += data.filename;
+	e += "<br />";
+	e += data.fullpath + " " + data.filesize;
   e += "</div>\n";
 	return e;
 }
@@ -38,7 +40,7 @@ function displayFiles() {
     var arrayLength = dataBase.length;
     for (var i = 0; i < arrayLength; i++) {
 			if (filter) {
-				if (dataBase[i].indexOf(filter) == -1)
+				if (dataBase[i].filename.indexOf(filter) == -1)
 					continue;
 			}
 			final_string += createEntry(dataBase[i]);
