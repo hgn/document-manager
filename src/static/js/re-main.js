@@ -1,6 +1,7 @@
 'use strict';
 
 const ipcRenderer = require('electron').ipcRenderer;
+const shell = require('electron').shell;
 
 var filter = null;
 var dataBase = null;
@@ -38,10 +39,14 @@ function filetypeIcon(filetype) {
 	}
 }
 
+function clickhandler(path) {
+	shell.showItemInFolder(path);
+}
+
 
 function createEntry(data) {
 	var filename = data.filename;
-  var e = "<div class=\"tr\">";//"<div class=\"file-entry\">";
+  var e = "<div class=\"tr\" onclick=\"clickhandler('" + data.fullpath + "')\">";
 
 	// icon section
 	e += "<div class=\"td\">";
