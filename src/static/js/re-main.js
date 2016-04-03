@@ -52,11 +52,18 @@ function createEntry(data) {
 	e += "<div class=\"td\">";
 	e += "<img src=\"" + filetypeIcon(data.filetype) + "\" width=\"20\", height=\"20\"/>";
 	e += "</div>";
+
 	e += "<div class=\"td\">";
 	e += data.filename;
 	e += "<br />";
-	e += data.fullpath + " " + data.filesize;
 	e += "</div>";
+
+	e += "<div class=\"td pathname\">";
+	e += data.pathname;
+  e += "</div>\n";
+	e += "<div class=\"td\">";
+	e += data.filesize;
+  e += "</div>\n";
   e += "</div>\n";
 	return e;
 }

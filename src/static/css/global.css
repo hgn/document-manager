@@ -36,4 +36,8 @@ div.tr:nth-of-type(odd) {
     background: #FAFAFA;
 }
 
+.pathname {
+	font-size: 80%;
+}
+
 
