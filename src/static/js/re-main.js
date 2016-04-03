@@ -19,17 +19,8 @@ ipcRenderer.on('file-database-update', function(event, arg) {
 });
 
 
-function basename(path) {
-    return path.replace(/\\/g,'/').replace( /.*\//, '' );
-}
- 
-function dirname(path) {
-    return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');;
-}
-
 function createEntry(data) {
-	var filename = basename(data);
-  var directory = dirname(data);
+	var filename = data.filename;
   var e = "<div class=\"file-entry\">";
 
 	// icon section
