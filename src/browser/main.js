@@ -12,7 +12,6 @@ const fs = require('fs');
 const path = require('path');
 
 
-
 let mainWindow;
 
 var supported_suffixes = [
@@ -111,6 +110,7 @@ function isFileTypeSupported(fullpath) {
 
 var walk = function(dir, done) {
 	var results = [];
+  console.log(dir);
 	fs.readdir(dir, function(err, list) {
 		if (err) return done(err);
 		var pending = list.length;
@@ -135,13 +135,49 @@ var walk = function(dir, done) {
 	});
 };
 
-function createDocumentDatabase () {
+
+function initFileDatabase(path) {
 	mainWindow.webContents.on('did-finish-load', function() {
-		walk(process.cwd(), function(err, results) {
+		walk(path, function(err, results) {
 			if (err) throw err;
 			mainWindow.webContents.send('file-database-update', results);
 		});
 	});
+}
+
+function genDefaultConf() {
+	var conf  = "var config = {};\n\n";
+	    conf += "config.document_root = \"" + process.cwd() + "\";\n\n\n";
+	    conf += "module.exports = config;\n";
+  return conf;
+}
+
+function getConfig() {
+	var configPath = app.getPath("userData");
+	try {
+		var stats = fs.lstatSync(configPath);
+		if (!stats.isDirectory()) {
+			fs.mkdirSync(configPath);
+		}
+    var fPath = configPath + '/config.js';
+    try {
+			var stats = fs.statSync(fPath);
+      return require(fPath);
+    }   
+    catch (e) {
+			fs.writeFileSync(fPath, genDefaultConf());
+			return require(fPath);
+		}
+	}
+	catch (e) {
+		console.log(e);
+	  app.exit(1);
+	}
+}
+
+function createDocumentDatabase () {
+	var config = getConfig();
+	initFileDatabase(config.document_root);
 }
 
 app.on('ready', createWindow);
