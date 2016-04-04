@@ -86,7 +86,7 @@ function filetypeClass(f) {
 }
 
 function fileentry(fullpath) {
-	var e = new Object();
+	var e = {};
 	e.filename = basename(fullpath);
 	e.pathname = dirname(fullpath);
 	e.fullpath = fullpath;
